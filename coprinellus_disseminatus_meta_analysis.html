@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coprinellus disseminatus: Interactive Research & Meta-Analysis Explorer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Strict Chart Container Sizing */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 310px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .bg-warm-neutral {
+            background-color: #faf7f2;
+        }
+        .bg-card-neutral {
+            background-color: #f2ebd9;
+        }
+        .border-warm {
+            border-color: #e2d7c3;
+        }
+        .text-sage {
+            color: #3b5e48;
+        }
+        .bg-sage {
+            background-color: #446b52;
+        }
+        .bg-sage-light {
+            background-color: #e5eee8;
+        }
+        .text-terracotta {
+            color: #b85233;
+        }
+        .bg-terracotta {
+            background-color: #b85233;
+        }
+        .bg-terracotta-light {
+            background-color: #f7ebe6;
+        }
+    </style>
+</head>
+<body class="bg-warm-neutral text-stone-800 font-sans antialiased selection:bg-amber-200 selection:text-stone-900">
+
+    <!-- Chosen Palette: Botanical Earth & Charcoal Neutrals -->
+    <!-- Application Structure Plan: Designed as a 9-section interactive scientific dashboard that transforms the linear report into a user-centric exploration portal. Features key metric highlights, interactive taxonomic & cryptic species matrices, a 1-locus vs 2-locus mating efficiency simulator, an orchid seed coat digestion timeline visualizer, interactive phytochemical inspectors, Chart.js dosage-response cytotoxicity curves, an interactive alcohol-coprine toxicology pathway simulator, heavy metal & transgenic phytoremediation models, and industrial biobleaching efficiency charts. -->
+    <!-- Visualization & Content Choices:
+        1. System Overview -> Key Metrics Grid -> Interactive stat cards highlighting genome size (54.41 Mb), 15 chromosomes, and 0% coprine content.
+        2. Taxonomy & Cryptic Speciation -> Interactive Species Inspector -> JS state toggle -> Differentiates C. disseminatus from C. disseminatus-similis and C. tenuis.
+        3. Genomic & Mating Systems -> Mating Efficiency Simulator -> JS simulation logic -> Demonstrates how mutational HD loss doubles spore compatibility from 25% to 50%.
+        4. Orchid Symbiosis -> Day-by-Day Digestion Timeline -> JS interactive slider -> Tracks 67% to 73% lignin coat breakdown for Cremastra appendiculata.
+        5. Phytochemistry & Bioactives -> Tabbed Compound Inspector -> Dynamic JS panel -> Explains PUFA linoleic acid, phenolics, and protein functions.
+        6. Pharmacology & Cancer Cytotoxicity -> Chart.js Dose-Response Line Chart -> Dynamic curve display -> Illustrates MCF-7, HeLa, and HL-60 inhibition.
+        7. Toxicology ("Coprine Fallacy") -> Interactive Ethanol Metabolism Simulator -> JS toggle -> Proves C. disseminatus lacks coprine and ALDH inhibition.
+        8. Bioremediation & Transgenic Crops -> Interactive Gene & Pollutant Model -> JS state view -> Shows ArsM/ACR3 gene translocation & dioxin degradation.
+        9. Industrial Biobleaching -> Chart.js Parameter Reduction Bar Chart -> Multi-metric visual -> Quantifies 55% Kappa & 68% AOX reduction.
+        CONFIRMING: NO SVG graphics used. NO Mermaid JS used. All visual elements rely on Chart.js, HTML5/CSS, Unicode characters, and Tailwind layout. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-warm-neutral/95 backdrop-blur border-b border-warm shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl" aria-hidden="true">🍄</span>
+                    <div>
+                        <h1 class="font-bold text-lg leading-tight text-stone-900">Coprinellus disseminatus</h1>
+                        <p class="text-xs text-stone-500 font-medium">Trooping Crumble Cap Meta-Analysis Portal</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-1 lg:space-x-3 text-xs font-semibold text-stone-600">
+                    <a href="#overview" class="px-2 py-1.5 rounded hover:bg-card-neutral transition">Overview</a>
+                    <a href="#taxonomy" class="px-2 py-1.5 rounded hover:bg-card-neutral transition">Taxonomy</a>
+                    <a href="#genomics" class="px-2 py-1.5 rounded hover:bg-card-neutral transition">Genomics & Mating</a>
+                    <a href="#symbiosis" class="px-2 py-1.5 rounded hover:bg-card-neutral transition">Orchid Symbiosis</a>
+                    <a href="#phytochemistry" class="px-2 py-1.5 rounded hover:bg-card-neutral transition">Phytochemistry</a>
+                    <a href="#pharmacology" class="px-2 py-1.5 rounded hover:bg-card-neutral transition">Pharmacology</a>
+                    <a href="#toxicology" class="px-2 py-1.5 rounded hover:bg-card-neutral transition">Toxicology</a>
+                    <a href="#bioremediation" class="px-2 py-1.5 rounded hover:bg-card-neutral transition">Bioremediation</a>
+                    <a href="#industrial" class="px-2 py-1.5 rounded hover:bg-card-neutral transition">Pulp Industry</a>
+                </nav>
+                <div class="md:hidden">
+                    <a href="#overview" class="text-xs font-semibold bg-sage text-white px-3 py-1.5 rounded shadow-xs">Explore</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- SECTION 1: EXECUTIVE OVERVIEW & KEY METRICS -->
+        <section id="overview" class="space-y-6">
+            <div class="bg-card-neutral border border-warm rounded-2xl p-6 md:p-8 shadow-xs">
+                <div class="max-w-3xl space-y-3">
+                    <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider text-sage bg-sage-light rounded-full">Multidisciplinary Meta-Analysis</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-stone-900">Coprinellus disseminatus: Biological & Industrial Synthesis</h2>
+                    <p class="text-sm md:text-base text-stone-700 leading-relaxed">
+                        <em>Coprinellus disseminatus</em> (the trooping crumble cap) represents an unusual evolutionary node within the Psathyrellaceae family. Lacking the autolytic deliquescence characteristic of most coprinoid species, it combines persistent non-inky fruiting bodies with high-throughput saprotrophic enzymes, a simplified bipolar mating system, and valuable pharmacological compounds. Explore the sections below to interact with empirical models and research findings across genetics, therapeutics, and environmental biotechnology.
+                    </p>
+                </div>
+
+                <!-- Key Metrics Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 mt-8">
+                    <div class="bg-warm-neutral border border-warm p-3.5 rounded-xl text-center">
+                        <span class="block text-xl font-black text-sage">54.41 Mb</span>
+                        <span class="text-[11px] text-stone-600 font-medium">Gapless T2T Genome</span>
+                    </div>
+                    <div class="bg-warm-neutral border border-warm p-3.5 rounded-xl text-center">
+                        <span class="block text-xl font-black text-stone-800">15 Chrom.</span>
+                        <span class="text-[11px] text-stone-600 font-medium">98.8% BUSCO Score</span>
+                    </div>
+                    <div class="bg-warm-neutral border border-warm p-3.5 rounded-xl text-center">
+                        <span class="block text-xl font-black text-terracotta">50% Success</span>
+                        <span class="text-[11px] text-stone-600 font-medium">Bipolar Mating Rate</span>
+                    </div>
+                    <div class="bg-warm-neutral border border-warm p-3.5 rounded-xl text-center">
+                        <span class="block text-xl font-black text-emerald-700">0% Coprine</span>
+                        <span class="text-[11px] text-stone-600 font-medium">Non-Toxic with Alcohol</span>
+                    </div>
+                    <div class="bg-warm-neutral border border-warm p-3.5 rounded-xl text-center">
+                        <span class="block text-xl font-black text-amber-700">73% Lignin</span>
+                        <span class="text-[11px] text-stone-600 font-medium">Orchid Coat Breakdown</span>
+                    </div>
+                    <div class="bg-warm-neutral border border-warm p-3.5 rounded-xl text-center">
+                        <span class="block text-xl font-black text-sky-800">-68% AOX</span>
+                        <span class="text-[11px] text-stone-600 font-medium">Pulp Biobleaching</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: TAXONOMY & CRYPTIC SPECIES COMPLEX -->
+        <section id="taxonomy" class="space-y-6">
+            <div class="border-l-4 border-sage pl-4">
+                <h2 class="text-xl md:text-2xl font-bold text-stone-900">1. Taxonomy & Cryptic Speciation Complex</h2>
+                <p class="text-xs md:text-sm text-stone-600 mt-1">
+                    Examine the shift from 19th-century morphological placement in <em>Coprinus</em> to modern reclassification within <em>Coprinellus</em> (Psathyrellaceae), alongside micro-diagnostic traits separating cryptic sibling species.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Cryptic Species Selector -->
+                <div class="lg:col-span-1 bg-card-neutral border border-warm p-5 rounded-xl space-y-3">
+                    <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wide">Cryptic Species Lineages</h3>
+                    <p class="text-xs text-stone-600">Select a lineage to inspect anatomical microcharacters:</p>
+                    <div class="space-y-2">
+                        <button onclick="selectSpecies('disseminatus')" class="spec-btn w-full text-left p-3 rounded-lg border border-warm bg-warm-neutral hover:bg-stone-100 transition" id="spec-disseminatus">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-xs text-stone-900">Coprinellus disseminatus</span>
+                                <span class="text-[10px] bg-sage-light text-sage px-2 py-0.5 rounded font-semibold">Type Species</span>
+                            </div>
+                            <span class="text-[11px] text-stone-500 block mt-1">Gregarious trooping habit, non-deliquescent</span>
+                        </button>
+                        <button onclick="selectSpecies('similis')" class="spec-btn w-full text-left p-3 rounded-lg border border-warm bg-warm-neutral hover:bg-stone-100 transition" id="spec-similis">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-xs text-stone-900">C. disseminatus-similis</span>
+                                <span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-semibold">Cryptic Sibling</span>
+                            </div>
+                            <span class="text-[11px] text-stone-500 block mt-1">Huge utriform cheilocystidia (70-165 &micro;m)</span>
+                        </button>
+                        <button onclick="selectSpecies('tenuis')" class="spec-btn w-full text-left p-3 rounded-lg border border-warm bg-warm-neutral hover:bg-stone-100 transition" id="spec-tenuis">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-xs text-stone-900">Coprinellus tenuis</span>
+                                <span class="text-[10px] bg-stone-200 text-stone-800 px-2 py-0.5 rounded font-semibold">Solitary Sibling</span>
+                            </div>
+                            <span class="text-[11px] text-stone-500 block mt-1">Membranous cap, eccentric germ pore</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Species Details Panel -->
+                <div class="lg:col-span-2 bg-warm-neutral border border-warm p-6 rounded-xl flex flex-col justify-between" id="species-display">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start border-b border-warm pb-3">
+                            <div>
+                                <span class="text-xs font-bold text-sage uppercase" id="spec-sect">Section: Disseminati</span>
+                                <h3 class="text-xl font-bold text-stone-900" id="spec-name">Coprinellus disseminatus (Pers.) J.E. Lange</h3>
+                            </div>
+                            <span class="px-2.5 py-1 text-xs font-bold bg-sage-light text-sage rounded" id="spec-habit">Trooping Habit</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-card-neutral p-3.5 rounded-lg border border-warm space-y-1">
+                                <strong class="text-stone-900 block font-bold">Macroscopic Morphology:</strong>
+                                <p class="text-stone-700" id="spec-macro">
+                                    Pileus 0.5–1.5 cm, campanulate, ash-gray pleated surface. Non-deliquescent gills turn dark brown/black. Stem thin, white, hollow (up to 4 cm). Fruiting troops in massive swarms on decaying hardwood logs.
+                                </p>
+                            </div>
+                            <div class="bg-card-neutral p-3.5 rounded-lg border border-warm space-y-1">
+                                <strong class="text-stone-900 block font-bold">Micro-Diagnostic Characteristics:</strong>
+                                <p class="text-stone-700" id="spec-micro">
+                                    Basidiospores 7.0–9.5 &times; 4.0–5.0 &micro;m, smooth almond-shaped with central apical germ pore. Q-ratio 1.75–1.9. 4-spored basidia, epithelium pileipellis, clamp connections abundant.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-lg text-xs">
+                            <strong class="text-amber-900 block font-bold mb-0.5">Taxonomic Shift Rationale:</strong>
+                            <span class="text-amber-800" id="spec-rationale">
+                                Molecular multigene phylogenetics proved that the traditional genus <em>Coprinus</em> was highly polyphyletic. <em>Coprinus comatus</em> remained in Agaricaceae, while coprinoid lineages were transferred to <em>Coprinellus</em>, <em>Coprinopsis</em>, and <em>Parasola</em> within the family Psathyrellaceae.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: GENOMICS & EVOLUTIONARY MATING SIMULATOR -->
+        <section id="genomics" class="space-y-6">
+            <div class="border-l-4 border-terracotta pl-4">
+                <h2 class="text-xl md:text-2xl font-bold text-stone-900">2. Genomic Architecture & Mating System Evolution</h2>
+                <p class="text-xs md:text-sm text-stone-600 mt-1">
+                    Explore the complete 54.41 Mb telomere-to-telomere (T2T) genome assembly and simulate how the evolutionary shift from tetrapolar to bipolar mating doubles sexual compatibility.
+                </p>
+            </div>
+
+            <!-- Mating Simulator Interactive Box -->
+            <div class="bg-card-neutral border border-warm rounded-2xl p-6 space-y-6">
+                <div>
+                    <h3 class="text-base font-bold text-stone-900">Sexual Compatibility & Resource Colonization Simulator</h3>
+                    <p class="text-xs text-stone-600">Select the genetic mating system architecture to model sibling spore compatibility and substrate monopolization rate:</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button onclick="setMatingSystem('tetrapolar')" class="mating-toggle-btn p-4 rounded-xl border border-warm bg-warm-neutral text-left hover:bg-stone-100 transition" id="mating-btn-tetrapolar">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-xs text-stone-900">Ancestral Tetrapolar System</span>
+                            <span class="text-[10px] bg-stone-200 text-stone-700 px-2 py-0.5 rounded font-semibold">2 Genetic Loci (A & B)</span>
+                        </div>
+                        <p class="text-[11px] text-stone-600">Typical Agaricomycetes configuration requiring dual allele matching at both HD and P/R loci.</p>
+                    </button>
+
+                    <button onclick="setMatingSystem('bipolar')" class="mating-toggle-btn p-4 rounded-xl border-2 border-sage bg-sage-light text-left hover:bg-emerald-50 transition" id="mating-btn-bipolar">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-xs text-sage">Derived Bipolar System (C. disseminatus)</span>
+                            <span class="text-[10px] bg-sage text-white px-2 py-0.5 rounded font-semibold">1 Locus (HD Receptor Loss)</span>
+                        </div>
+                        <p class="text-[11px] text-stone-600">Mutational loss of pheromone receptor function at HD locus simplifies mating control to 1 locus.</p>
+                    </button>
+                </div>
+
+                <!-- Output Display -->
+                <div class="bg-warm-neutral border border-warm p-5 rounded-xl space-y-4" id="mating-output">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-warm pb-3">
+                        <span class="text-xs font-bold text-stone-500 uppercase">Simulated Sibling Spore Compatibility</span>
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold text-sm rounded-full" id="mating-compat-rate">50% Sibling Compatibility</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                        <div class="bg-card-neutral p-3 rounded-lg border border-warm">
+                            <span class="text-stone-500 font-semibold block mb-0.5">Mating Loci Complexity:</span>
+                            <span class="text-stone-900 font-bold text-sm" id="mating-loci">Single Functional Locus</span>
+                        </div>
+                        <div class="bg-card-neutral p-3 rounded-lg border border-warm">
+                            <span class="text-stone-500 font-semibold block mb-0.5">Colonization Efficiency:</span>
+                            <span class="text-sage font-bold text-sm" id="mating-speed">Rapid Substrate Monopolization</span>
+                        </div>
+                        <div class="bg-card-neutral p-3 rounded-lg border border-warm">
+                            <span class="text-stone-500 font-semibold block mb-0.5">Global Population Diversity:</span>
+                            <span class="text-terracotta font-bold text-sm" id="mating-diversity">~143 Global Mating Types</span>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-stone-600 leading-relaxed pt-2 border-t border-warm" id="mating-explanation">
+                        By simplifying its sexual compatibility from 2 loci to 1 locus, <em>Coprinellus disseminatus</em> doubles the chance that spores landing on the same decaying log can successfully mate (50% vs 25%). This allows rapid dikaryotization and competitive monopolization of wood resources before rival fungi establish.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: ORCHID MYCORRHIZAL SYMBIOSIS -->
+        <section id="symbiosis" class="space-y-6">
+            <div class="border-l-4 border-sage pl-4">
+                <h2 class="text-xl md:text-2xl font-bold text-stone-900">3. Orchid Mycorrhizal Symbiosis (*Cremastra appendiculata*)</h2>
+                <p class="text-xs md:text-sm text-stone-600 mt-1">
+                    Track the step-by-step enzymatic breakdown of the orchid seed coat by *C. disseminatus* to break dormancy and transfer lignocellulosic carbon into protocorm cells.
+                </p>
+            </div>
+
+            <div class="bg-card-neutral border border-warm p-6 rounded-xl space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <h3 class="text-base font-bold text-stone-900">Interactive Seed Coat Digestion & Peloton Timeline</h3>
+                        <p class="text-xs text-stone-600">Drag the slider to observe time-dependent enzymatic seed coat breakdown:</p>
+                    </div>
+                    <span class="px-3 py-1 bg-sage text-white text-xs font-bold rounded-lg shadow-xs" id="timeline-day-tag">Day 12: Protocorm Emergence</span>
+                </div>
+
+                <!-- Range Slider -->
+                <div class="space-y-2">
+                    <input type="range" min="0" max="12" step="3" value="12" id="digestion-slider" oninput="updateDigestionTimeline(this.value)" class="w-full accent-sage cursor-pointer">
+                    <div class="flex justify-between text-[11px] font-semibold text-stone-500 px-1">
+                        <span>Day 0 (Chemoattraction)</span>
+                        <span>Day 3 (Hyphal Attachment)</span>
+                        <span>Day 6 (67% Lignin Deg.)</span>
+                        <span>Day 9 (Peloton Formation)</span>
+                        <span>Day 12 (73% Lignin Deg.)</span>
+                    </div>
+                </div>
+
+                <!-- Timeline Output Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs" id="timeline-output-grid">
+                    <div class="bg-warm-neutral p-4 rounded-xl border border-warm space-y-1">
+                        <span class="text-stone-500 font-bold uppercase text-[10px] block">Lignin Degradation Level</span>
+                        <span class="text-2xl font-black text-terracotta" id="digestion-lignin">73% Digest</span>
+                        <p class="text-stone-600 text-[11px]" id="digestion-lignin-desc">Testa (seed coat) heavily compromised by laccase and xylanase enzymes.</p>
+                    </div>
+                    <div class="bg-warm-neutral p-4 rounded-xl border border-warm space-y-1">
+                        <span class="text-stone-500 font-bold uppercase text-[10px] block">Seed Permeability & Hydration</span>
+                        <span class="text-2xl font-black text-sage" id="digestion-perm">Maximum</span>
+                        <p class="text-stone-600 text-[11px]" id="digestion-perm-desc">Water uptake triggers hormonal shifts (ABA/ethylene balance).</p>
+                    </div>
+                    <div class="bg-warm-neutral p-4 rounded-xl border border-warm space-y-1">
+                        <span class="text-stone-500 font-bold uppercase text-[10px] block">Fungal Symbiotic Interface</span>
+                        <span class="text-2xl font-black text-stone-800" id="digestion-peloton">Intracellular Pelatons</span>
+                        <p class="text-stone-600 text-[11px]" id="digestion-peloton-desc">Hyphae penetrate protocorm cells, releasing carbon nutrients directly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: PHYTOCHEMISTRY & NUTRIENT PROFILE -->
+        <section id="phytochemistry" class="space-y-6">
+            <div class="border-l-4 border-amber-600 pl-4">
+                <h2 class="text-xl md:text-2xl font-bold text-stone-900">4. Nutritional & Phytochemical Profile</h2>
+                <p class="text-xs md:text-sm text-stone-600 mt-1">
+                    Examine the 51+ identified bioactive constituents, dominant polyunsaturated fatty acids, phenolic antioxidants, and specialized antimicrobial proteins.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Tab Controls -->
+                <div class="lg:col-span-1 bg-card-neutral border border-warm p-5 rounded-xl space-y-3">
+                    <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wide">Phytochemical Category</h3>
+                    <div class="space-y-2">
+                        <button onclick="selectPhyto('pufa')" class="phyto-btn w-full text-left p-3 rounded-lg border border-warm bg-warm-neutral hover:bg-stone-100 transition" id="phyto-pufa">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-xs text-stone-900">Fatty Acids (PUFA)</span>
+                                <span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-semibold">59.1% PUFA</span>
+                            </div>
+                            <span class="text-[11px] text-stone-500 block mt-1">Linoleic acid (56.6%), Palmitic acid (13.9%)</span>
+                        </button>
+                        <button onclick="selectPhyto('phenolics')" class="phyto-btn w-full text-left p-3 rounded-lg border border-warm bg-warm-neutral hover:bg-stone-100 transition" id="phyto-phenolics">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-xs text-stone-900">Phenolic Acids</span>
+                                <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold">Antioxidant</span>
+                            </div>
+                            <span class="text-[11px] text-stone-500 block mt-1">$p$-hydroxybenzoic, $p$-coumaric, protocatechuic</span>
+                        </button>
+                        <button onclick="selectPhyto('proteins')" class="phyto-btn w-full text-left p-3 rounded-lg border border-warm bg-warm-neutral hover:bg-stone-100 transition" id="phyto-proteins">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-xs text-stone-900">Proteins & Amino Acids</span>
+                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-semibold">27.5 kDa Protein</span>
+                            </div>
+                            <span class="text-[11px] text-stone-500 block mt-1">Leucine dominant; dermatophyte inhibition</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Detail Inspector -->
+                <div class="lg:col-span-2 bg-warm-neutral border border-warm p-6 rounded-xl flex flex-col justify-between" id="phyto-display">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start border-b border-warm pb-3">
+                            <div>
+                                <span class="text-xs font-bold text-amber-700 uppercase" id="phyto-cat">Category: Lipid Profile</span>
+                                <h3 class="text-xl font-bold text-stone-900" id="phyto-title">Polyunsaturated Fatty Acids (PUFA)</h3>
+                            </div>
+                            <span class="px-2.5 py-1 text-xs font-bold bg-amber-100 text-amber-900 rounded" id="phyto-stat">59.1% Total PUFA</span>
+                        </div>
+
+                        <p class="text-xs text-stone-700 leading-relaxed" id="phyto-desc">
+                            The lipid matrix of <em>Coprinellus disseminatus</em> is dominated by linoleic acid (56.6%), palmitic acid (13.9%), and oleic acid (12.0%). The exceptionally high ratio of polyunsaturated fatty acids to saturated fatty acids (59.1% vs 23.1%) contributes directly to cellular membrane fluidity and provides essential anti-inflammatory precursors.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs" id="phyto-details">
+                            <div class="bg-card-neutral p-3 rounded-lg border border-warm">
+                                <strong class="text-stone-900 block font-bold mb-0.5">Linoleic Acid (C18:2):</strong>
+                                <span class="text-stone-600">56.6% of total fatty acids; structural membrane integrity & lipid peroxidation resistance.</span>
+                            </div>
+                            <div class="bg-card-neutral p-3 rounded-lg border border-warm">
+                                <strong class="text-stone-900 block font-bold mb-0.5">Palmitic Acid (C16:0):</strong>
+                                <span class="text-stone-600">13.9% of total fatty acids; primary saturated energy substrate.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: PHARMACOLOGY & CANCER CYTOTOXICITY -->
+        <section id="pharmacology" class="space-y-6">
+            <div class="border-l-4 border-sage pl-4">
+                <h2 class="text-xl md:text-2xl font-bold text-stone-900">5. Pharmacological Bioactivity & Cancer Cytotoxicity</h2>
+                <p class="text-xs md:text-sm text-stone-600 mt-1">
+                    Examine empirical dose-response cytotoxicity curves across breast cancer (MCF-7), cervical carcinoma (HeLa), and leukemia cell lines, alongside enzyme inhibition profiles.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Chart 1: Dose-Response Cytotoxicity Line Chart -->
+                <div class="bg-card-neutral border border-warm p-6 rounded-xl space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wide">Cancer Cell Viability (% Survival)</h3>
+                        <span class="text-[10px] bg-warm-neutral border border-warm px-2 py-1 rounded text-stone-600">Chart.js Visualizer</span>
+                    </div>
+                    <p class="text-xs text-stone-600">
+                        In vitro dose-dependent antiproliferative activity over 72h incubation:
+                    </p>
+
+                    <!-- Chart Container -->
+                    <div class="chart-container">
+                        <canvas id="cytotoxicityChart"></canvas>
+                    </div>
+
+                    <div class="text-[11px] text-stone-600 bg-warm-neutral p-3 rounded-lg border border-warm">
+                        <strong>Mechanism Key:</strong> HeLa cell apoptosis occurs at concentrations as low as 5 &micro;g/mL via Caspase-3 protease activation. Addition of Z-VAD-FMK (a pan-caspase inhibitor) completely blocks cell death, confirming true programmed apoptosis rather than non-specific necrosis.
+                    </div>
+                </div>
+
+                <!-- Interactive Multi-Target Enzyme Profile Card -->
+                <div class="bg-card-neutral border border-warm p-6 rounded-xl space-y-4 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wide mb-2">Multi-Target Enzyme Inhibitory Spectrum</h3>
+                        <p class="text-xs text-stone-600 mb-4">
+                            Summary of therapeutic enzyme inhibition targets driving antidiabetic, anti-obesity, and dermatological bioactivities:
+                        </p>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-warm-neutral p-3 rounded-lg border border-warm flex justify-between items-center">
+                                <div>
+                                    <strong class="text-stone-900 block font-bold">&alpha;-Glucosidase & Pancreatic Lipase</strong>
+                                    <span class="text-stone-600 text-[11px]">Slowing intestinal lipid and carbohydrate absorption</span>
+                                </div>
+                                <span class="px-2.5 py-1 bg-amber-100 text-amber-900 font-bold text-[11px] rounded">Antidiabetic</span>
+                            </div>
+
+                            <div class="bg-warm-neutral p-3 rounded-lg border border-warm flex justify-between items-center">
+                                <div>
+                                    <strong class="text-stone-900 block font-bold">Tyrosinase Inhibition</strong>
+                                    <span class="text-stone-600 text-[11px]">Blocks melanin synthesis; anti-hyperpigmentation</span>
+                                </div>
+                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-900 font-bold text-[11px] rounded">Skin Whitening</span>
+                            </div>
+
+                            <div class="bg-warm-neutral p-3 rounded-lg border border-warm flex justify-between items-center">
+                                <div>
+                                    <strong class="text-stone-900 block font-bold">Elastase Inhibition</strong>
+                                    <span class="text-stone-600 text-[11px]">Prevents dermal elastin degradation</span>
+                                </div>
+                                <span class="px-2.5 py-1 bg-blue-100 text-blue-900 font-bold text-[11px] rounded">Cosmeceutical</span>
+                            </div>
+
+                            <div class="bg-warm-neutral p-3 rounded-lg border border-warm flex justify-between items-center">
+                                <div>
+                                    <strong class="text-stone-900 block font-bold">Antimicrobial 27.5 kDa Protein</strong>
+                                    <span class="text-stone-600 text-[11px]">Inhibits dermatophyte *Trichophyton mentagrophytes*</span>
+                                </div>
+                                <span class="px-2.5 py-1 bg-purple-100 text-purple-900 font-bold text-[11px] rounded">Antifungal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-[11px] text-stone-500 italic border-t border-warm pt-2 mt-2">
+                        Extracts demonstrate low $IC_{50}$ values against free radicals ($1.40\,\mu\mathrm{g/mL}$ for superoxide/hydroxyl in ethanolic extracts).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: TOXICOLOGY & THE COPRINE FALLACY -->
+        <section id="toxicology" class="space-y-6">
+            <div class="border-l-4 border-emerald-600 pl-4">
+                <h2 class="text-xl md:text-2xl font-bold text-stone-900">6. Toxicology & The "Coprine Fallacy" Differentiation</h2>
+                <p class="text-xs md:text-sm text-stone-600 mt-1">
+                    Clear up common foraging confusion by simulating the biochemical differences between *Coprinopsis atramentaria* (coprine present) and *Coprinellus disseminatus* (coprine absent).
+                </p>
+            </div>
+
+            <!-- Ethanol Simulator Box -->
+            <div class="bg-card-neutral border border-warm rounded-2xl p-6 space-y-6">
+                <div>
+                    <h3 class="text-base font-bold text-stone-900">Alcohol Consumption Metabolic Pathway Simulator</h3>
+                    <p class="text-xs text-stone-600">Select a mushroom species ingested prior to ethanol consumption to trace liver aldehyde dehydrogenase (ALDH) activity:</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button onclick="setToxicology('atramentaria')" class="tox-btn p-4 rounded-xl border border-warm bg-warm-neutral text-left hover:bg-stone-100 transition" id="tox-btn-atramentaria">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-xs text-stone-900">Coprinopsis atramentaria</span>
+                            <span class="text-[10px] bg-red-100 text-red-800 px-2 py-0.5 rounded font-semibold">Contains Coprine</span>
+                        </div>
+                        <p class="text-[11px] text-stone-600">Common Ink Cap / Tippler's Bane. Pro-toxin hydrolyzes to 1-aminocyclopropanol.</p>
+                    </button>
+
+                    <button onclick="setToxicology('disseminatus')" class="tox-btn p-4 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-left hover:bg-emerald-100 transition" id="tox-btn-disseminatus">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-xs text-emerald-900">Coprinellus disseminatus</span>
+                            <span class="text-[10px] bg-emerald-600 text-white px-2 py-0.5 rounded font-semibold">0% Coprine (Safe)</span>
+                        </div>
+                        <p class="text-[11px] text-stone-600">Fairy Inkcap / Trooping Crumble Cap. Completely devoid of coprine or ALDH inhibitors.</p>
+                    </button>
+                </div>
+
+                <!-- Simulation Output -->
+                <div class="bg-warm-neutral border border-warm p-5 rounded-xl space-y-4" id="tox-output">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-warm pb-3">
+                        <span class="text-xs font-bold text-stone-500 uppercase">Liver Metabolism & Safety Status</span>
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold text-sm rounded-full" id="tox-status">&check; Safe: Uninhibited Alcohol Breakdown</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                        <div class="bg-card-neutral p-3 rounded-lg border border-warm">
+                            <span class="text-stone-500 font-semibold block mb-0.5">Coprine Pro-Toxin Content:</span>
+                            <span class="text-emerald-700 font-bold text-sm" id="tox-coprine">0.0% (Completely Absent)</span>
+                        </div>
+                        <div class="bg-card-neutral p-3 rounded-lg border border-warm">
+                            <span class="text-stone-500 font-semibold block mb-0.5">ALDH Enzyme Activity:</span>
+                            <span class="text-sage font-bold text-sm" id="tox-aldh">100% Active (Normal Function)</span>
+                        </div>
+                        <div class="bg-card-neutral p-3 rounded-lg border border-warm">
+                            <span class="text-stone-500 font-semibold block mb-0.5">Acetaldehyde Accumulation:</span>
+                            <span class="text-stone-900 font-bold text-sm" id="tox-acetaldehyde">None (Converted to Acetic Acid)</span>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-stone-600 leading-relaxed pt-2 border-t border-warm" id="tox-explanation">
+                        Unlike <em>Coprinopsis atramentaria</em>, <em>Coprinellus disseminatus</em> contains no coprine. Consuming alcohol alongside or after eating this mushroom causes no toxic disulfiram-like reaction (Antabuse effect). The species is completely non-poisonous, though dismissed culinary-wise due to tiny, fragile flesh.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: BIOREMEDIATION & TRANSGENIC ARSENIC CROPS -->
+        <section id="bioremediation" class="space-y-6">
+            <div class="border-l-4 border-sage pl-4">
+                <h2 class="text-xl md:text-2xl font-bold text-stone-900">7. Environmental Mycoremediation & Transgenic Arsenic Crops</h2>
+                <p class="text-xs md:text-sm text-stone-600 mt-1">
+                    Discover how *C. disseminatus* degrades persistent organic pollutants (POPs) and how its *ArsM* and *ACR3* resistance genes power transgenic arsenic phytoremediation.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- POPs Degradation -->
+                <div class="bg-card-neutral border border-warm p-5 rounded-xl space-y-3">
+                    <span class="text-2xl" aria-hidden="true">🧪</span>
+                    <h3 class="font-bold text-sm text-stone-900">Dioxin & Pesticide Degradation</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Intracellular Cytochrome P450 monooxygenases paired with extracellular laccases/peroxidases achieve near-complete mineralization of dibenzo-$p$-dioxin, 2,4-D, 2,4,5-T, chlorpyrifos, and endosulfan in contaminated soils.
+                    </p>
+                    <span class="inline-block px-2 py-1 bg-sage-light text-sage text-[10px] font-bold rounded">P450 + Laccase Cascade</span>
+                </div>
+
+                <!-- Heavy Metal Biosorption -->
+                <div class="bg-card-neutral border border-warm p-5 rounded-xl space-y-3">
+                    <span class="text-2xl" aria-hidden="true">🧲</span>
+                    <h3 class="font-bold text-sm text-stone-900">Heavy Metal Biosorption</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Mycelial biomass acts as a natural biosorbent, binding heavy metal cations ($Pb^{2+}$, $Cd^{2+}$, $Cu^{2+}$) to cellular wall polysaccharides. Demonstrates up to 100% biosorption of elemental lead in liquid media.
+                    </p>
+                    <span class="inline-block px-2 py-1 bg-amber-100 text-amber-900 text-[10px] font-bold rounded">100% Pb2+ Sequestration</span>
+                </div>
+
+                <!-- Transgenic Arsenic Phytoremediation -->
+                <div class="bg-card-neutral border border-warm p-5 rounded-xl space-y-3">
+                    <span class="text-2xl" aria-hidden="true">🌾</span>
+                    <h3 class="font-bold text-sm text-stone-900">Transgenic ArsM / ACR3 Crops</h3>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Cloning fungal <em>ArsM</em> (As-methylation/volatilization) and <em>ACR3</em> (arsenite efflux permease) into transgenic tobacco/rice drives shoot accumulation of 451–557 mg/kg As in paddy soil without plant toxicity.
+                    </p>
+                    <span class="inline-block px-2 py-1 bg-emerald-100 text-emerald-900 text-[10px] font-bold rounded">451-557 mg/kg As Shoot Accum.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 9: INDUSTRIAL PULP BIOBLEACHING -->
+        <section id="industrial" class="space-y-6">
+            <div class="border-l-4 border-sky-700 pl-4">
+                <h2 class="text-xl md:text-2xl font-bold text-stone-900">8. Industrial Pulp Biobleaching Performance</h2>
+                <p class="text-xs md:text-sm text-stone-600 mt-1">
+                    Quantifying the performance of cellulase-poor xylanases (strains SH-1, SW-1, MLK-01) in eco-friendly paper mill biobleaching sequences (ECF/TCF).
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Chart 2: Biobleaching Impact Bar Chart -->
+                <div class="bg-card-neutral border border-warm p-6 rounded-xl space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wide">Pulp Bleaching Parameters (% Improvement)</h3>
+                        <span class="text-[10px] bg-warm-neutral border border-warm px-2 py-1 rounded text-stone-600">Chart.js Visualizer</span>
+                    </div>
+                    <p class="text-xs text-stone-600">
+                        Metrics achieved via solid-state fermentation (SSF) xylanase pre-treatment:
+                    </p>
+
+                    <!-- Chart Container -->
+                    <div class="chart-container">
+                        <canvas id="pulpBiobleachChart"></canvas>
+                    </div>
+
+                    <div class="text-[11px] text-stone-600 bg-warm-neutral p-3 rounded-lg border border-warm">
+                        <strong>Cellulase-Poor Rationale:</strong> High xylanase-to-cellulase ratio specifically hydrolyzes the hemicellulose shield without damaging cellulose fibers, preserving pulp tensile and tear strength.
+                    </div>
+                </div>
+
+                <!-- Industrial Benefits Card -->
+                <div class="bg-card-neutral border border-warm p-6 rounded-xl space-y-4 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wide mb-2">Key Industrial & Economic Benefits</h3>
+                        <ul class="space-y-2.5 text-xs text-stone-700">
+                            <li class="bg-warm-neutral p-3 rounded-lg border border-warm">
+                                <strong class="text-stone-900 block font-bold mb-0.5">Kappa Number Reduction:</strong>
+                                Unbleached pulp kappa number (residual lignin) drops by 24.38% to 55.0% prior to chemical addition.
+                            </li>
+                            <li class="bg-warm-neutral p-3 rounded-lg border border-warm">
+                                <strong class="text-stone-900 block font-bold mb-0.5">AOX Effluent Mitigation:</strong>
+                                Toxic Adsorbable Organic Halides (AOX) in paper mill wastewater drop by 21% to over 68%.
+                            </li>
+                            <li class="bg-warm-neutral p-3 rounded-lg border border-warm">
+                                <strong class="text-stone-900 block font-bold mb-0.5">Thermo-Alkali Stability:</strong>
+                                Enzymes operate effectively at 55–85&deg;C and pH 8–10, eliminating costly cooling or acidification steps.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="text-[11px] text-stone-500 italic border-t border-warm pt-2">
+                        Paper strength indices improve concurrently: tensile (+4.78%), burst (+6.38%), double fold endurance (+11.11%).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-card-neutral border-t border-warm mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-stone-500 space-y-2">
+            <p><strong>Coprinellus disseminatus Meta-Analysis Interactive Application</strong></p>
+            <p>Built with Tailwind CSS & Chart.js &bull; Designed for single-page research synthesis</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- 1. CRYPTIC SPECIES SELECTOR LOGIC ---
+        const speciesData = {
+            disseminatus: {
+                sect: "Section: Disseminati",
+                name: "Coprinellus disseminatus (Pers.) J.E. Lange",
+                habit: "Trooping Habit",
+                macro: "Pileus 0.5–1.5 cm, campanulate, ash-gray pleated surface. Non-deliquescent gills turn dark brown/black. Stem thin, white, hollow (up to 4 cm). Fruiting troops in massive swarms on decaying hardwood logs.",
+                micro: "Basidiospores 7.0–9.5 × 4.0–5.0 µm, smooth almond-shaped with central apical germ pore. Q-ratio 1.75–1.9. 4-spored basidia, epithelium pileipellis, clamp connections abundant.",
+                rationale: "Molecular multigene phylogenetics proved that traditional Coprinus was polyphyletic. Coprinellus disseminatus was moved to Psathyrellaceae as the type species for section Disseminati."
+            },
+            similis: {
+                sect: "Cryptic Sibling Lineage",
+                name: "Coprinellus disseminatus-similis",
+                habit: "Closed to Umbonate",
+                macro: "Indistinguishable macroscopically from C. disseminatus in field conditions. Begins as a closed cylindrical cap and matures to an umbonate shape on decaying wood.",
+                micro: "Microscopically separated by massive, narrowly utriform cheilocystidia measuring 70–165 × 11–15 µm alongside completely smooth veil elements.",
+                rationale: "Confirmed as a distinct cryptic species via 2024 genomic sequencing, sharing identical ecological niches."
+            },
+            tenuis: {
+                sect: "Solitary Sibling Lineage",
+                name: "Coprinellus tenuis",
+                habit: "Strictly Solitary",
+                macro: "Paper-thin, highly membranous cap growing strictly as solitary individuals on leaf litter, completely lacking the trooping behavior of C. disseminatus.",
+                micro: "Features an exceptionally eccentric germ pore (1.5–2.0 µm wide) and distinct basidiospore length-width ratios.",
+                rationale: "Separated by both growth habit (solitary on litter vs trooping on wood) and spore pore morphology."
+            }
+        };
+
+        function selectSpecies(id) {
+            const data = speciesData[id];
+            if (!data) return;
+
+            document.getElementById('spec-sect').textContent = data.sect;
+            document.getElementById('spec-name').textContent = data.name;
+            document.getElementById('spec-habit').textContent = data.habit;
+            document.getElementById('spec-macro').textContent = data.macro;
+            document.getElementById('spec-micro').textContent = data.micro;
+            document.getElementById('spec-rationale').textContent = data.rationale;
+
+            document.querySelectorAll('.spec-btn').forEach(btn => {
+                btn.classList.remove('bg-sage-light', 'border-sage');
+                btn.classList.add('bg-warm-neutral', 'border-warm');
+            });
+            const active = document.getElementById(`spec-${id}`);
+            if (active) {
+                active.classList.remove('bg-warm-neutral', 'border-warm');
+                active.classList.add('bg-sage-light', 'border-sage');
+            }
+        }
+
+        // --- 2. MATING SYSTEM SIMULATOR LOGIC ---
+        function setMatingSystem(type) {
+            const compatRate = document.getElementById('mating-compat-rate');
+            const loci = document.getElementById('mating-loci');
+            const speed = document.getElementById('mating-speed');
+            const diversity = document.getElementById('mating-diversity');
+            const explanation = document.getElementById('mating-explanation');
+
+            const btnTetra = document.getElementById('mating-btn-tetrapolar');
+            const btnBipolar = document.getElementById('mating-btn-bipolar');
+
+            if (type === 'tetrapolar') {
+                compatRate.className = "px-3 py-1 bg-amber-100 text-amber-800 font-bold text-sm rounded-full";
+                compatRate.textContent = "25% Sibling Compatibility";
+                loci.textContent = "Dual Loci (A & B matching required)";
+                speed.textContent = "Standard / Slow Dikaryotization";
+                diversity.textContent = "High Local Outcrossing Dependency";
+                explanation.textContent = "In the ancestral tetrapolar system (common in Agaricomycetes), spores from the same mushroom must match alleles at two distinct genetic loci (HD and P/R), restricting sibling interbreeding to 25%. This favors outcrossing but slows substrate colonization.";
+
+                btnTetra.className = "mating-toggle-btn p-4 rounded-xl border-2 border-amber-600 bg-amber-50 text-left transition";
+                btnBipolar.className = "mating-toggle-btn p-4 rounded-xl border border-warm bg-warm-neutral text-left transition";
+            } else {
+                compatRate.className = "px-3 py-1 bg-emerald-100 text-emerald-800 font-bold text-sm rounded-full";
+                compatRate.textContent = "50% Sibling Compatibility";
+                loci.textContent = "Single Functional Locus (HD Receptor Loss)";
+                speed.textContent = "Rapid Substrate Monopolization";
+                diversity.textContent = "~143 Global Mating Types";
+                explanation.textContent = "By simplifying its sexual compatibility from 2 loci to 1 locus through mutational receptor loss at the HD locus, C. disseminatus doubles sibling mating success to 50%. This enables rapid dikaryotization and complete monopolization of ephemeral wood logs.";
+
+                btnBipolar.className = "mating-toggle-btn p-4 rounded-xl border-2 border-sage bg-sage-light text-left transition";
+                btnTetra.className = "mating-toggle-btn p-4 rounded-xl border border-warm bg-warm-neutral text-left transition";
+            }
+        }
+
+        // --- 3. ORCHID SYMBIOSIS TIMELINE LOGIC ---
+        const timelineData = {
+            0: { day: "Day 0: Chemoattraction", lignin: "0% Digest", perm: "Impermeable", peloton: "No Attachment", ligninDesc: "Intact lignified seed coat (testa) acts as a physical barrier.", permDesc: "Seed remains dormant due to low water & nutrient permeability.", pelotonDesc: "Orchid seed exudes phenolic acids to attract C. disseminatus hyphae." },
+            3: { day: "Day 3: Hyphal Attachment", lignin: "25% Digest", perm: "Low Permeability", peloton: "Surface Binding", ligninDesc: "Fungal xylanases and laccases begin hydrolyzing outer coat.", permDesc: "Microscopic cracks begin appearing on the seed surface.", pelotonDesc: "Mycelia attach firmly to the exuded phenolic chemoattractants." },
+            6: { day: "Day 6: Major Degradation", lignin: "67% Digest", perm: "High Permeability", peloton: "Incipient Penetration", ligninDesc: "Enzymatic digestion removes 67% of total seed coat lignin.", permDesc: "Massive moisture influx triggers internal hormonal shift (ABA/ethylene).", pelotonDesc: "Hyphae breach the coat barrier and contact embryo cells." },
+            9: { day: "Day 9: Peloton Formation", lignin: "70% Digest", perm: "High Permeability", peloton: "Active Pelatons", ligninDesc: "Seed coat barrier completely compromised.", permDesc: "Protocorm cell expansion underway.", pelotonDesc: "Coiled fungal pelotons form inside host cells, transferring carbon." },
+            12: { day: "Day 12: Protocorm Emergence", lignin: "73% Digest", perm: "Maximum", peloton: "Intracellular Pelatons", ligninDesc: "Testa fully digested (73% total lignin removal).", permDesc: "Full hydration and nutrient transfer completed.", pelotonDesc: "Protocorm emerges successfully, ending orchid seed dormancy." }
+        };
+
+        function updateDigestionTimeline(val) {
+            const data = timelineData[val];
+            if (!data) return;
+
+            document.getElementById('timeline-day-tag').textContent = data.day;
+            document.getElementById('digestion-lignin').textContent = data.lignin;
+            document.getElementById('digestion-lignin-desc').textContent = data.ligninDesc;
+            document.getElementById('digestion-perm').textContent = data.perm;
+            document.getElementById('digestion-perm-desc').textContent = data.permDesc;
+            document.getElementById('digestion-peloton').textContent = data.peloton;
+            document.getElementById('digestion-peloton-desc').textContent = data.pelotonDesc;
+        }
+
+        // --- 4. PHYTOCHEMISTRY SELECTOR LOGIC ---
+        const phytoData = {
+            pufa: {
+                cat: "Category: Lipid Profile",
+                title: "Polyunsaturated Fatty Acids (PUFA)",
+                stat: "59.1% Total PUFA",
+                desc: "The lipid matrix of Coprinellus disseminatus is dominated by linoleic acid (56.6%), palmitic acid (13.9%), and oleic acid (12.0%). The exceptionally high ratio of polyunsaturated fatty acids to saturated fatty acids (59.1% vs 23.1%) contributes directly to cellular membrane fluidity and provides essential anti-inflammatory precursors.",
+                details: [
+                    { name: "Linoleic Acid (C18:2):", val: "56.6% of total fatty acids; structural membrane integrity & lipid peroxidation resistance." },
+                    { name: "Palmitic Acid (C16:0):", val: "13.9% of total fatty acids; primary saturated energy substrate." }
+                ]
+            },
+            phenolics: {
+                cat: "Category: Phenolic Antioxidants",
+                title: "Hydroxycinnamic & Phenolic Acids",
+                stat: "Low IC50 Radical Scavenging",
+                desc: "Contains dense reserves of p-hydroxybenzoic acid (9.46 µg/g DW), p-coumaric acid (7.8 µg/g DW), and protocatechuic acid. These compounds act as potent free radical scavengers, halting membrane lipid peroxidation and cell mutagenesis.",
+                details: [
+                    { name: "Hydroxyl & Superoxide Scavenging:", val: "IC50 of 1.40 µg/mL (ethanolic extract) and 4.02 µg/mL (aqueous extract)." },
+                    { name: "Nitric Oxide (NO) Scavenging:", val: "Protects cells from inflammatory reactive nitrogen species." }
+                ]
+            },
+            proteins: {
+                cat: "Category: Proteins & Bioactive Peptides",
+                title: "Crude Protein & 27.5 kDa Antifungal Fraction",
+                stat: "9.72% Crude Protein",
+                desc: "Total crude protein constitutes ~9.72% DW, with Leucine as the dominant essential amino acid. A specialized low-molecular-weight 27.5 kDa protein fraction exhibits targeted antifungal activity against human dermatophyte pathogens.",
+                details: [
+                    { name: "Essential Amino Acids:", val: "Total EAA 29.57 mg/g DW; Leucine dominates essential profile." },
+                    { name: "27.5 kDa Antifungal Protein:", val: "Inhibits growth of dermatophyte fungus Trichophyton mentagrophytes." }
+                ]
+            }
+        };
+
+        function selectPhyto(id) {
+            const data = phytoData[id];
+            if (!data) return;
+
+            document.getElementById('phyto-cat').textContent = data.cat;
+            document.getElementById('phyto-title').textContent = data.title;
+            document.getElementById('phyto-stat').textContent = data.stat;
+            document.getElementById('phyto-desc').textContent = data.desc;
+
+            const container = document.getElementById('phyto-details');
+            container.innerHTML = data.details.map(item => `
+                <div class="bg-card-neutral p-3 rounded-lg border border-warm">
+                    <strong class="text-stone-900 block font-bold mb-0.5">${item.name}</strong>
+                    <span class="text-stone-600">${item.val}</span>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.phyto-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-50', 'border-amber-300');
+            });
+            const active = document.getElementById(`phyto-${id}`);
+            if (active) active.classList.add('bg-amber-50', 'border-amber-300');
+        }
+
+        // --- 5. TOXICOLOGY SIMULATOR LOGIC ---
+        function setToxicology(species) {
+            const status = document.getElementById('tox-status');
+            const coprine = document.getElementById('tox-coprine');
+            const aldh = document.getElementById('tox-aldh');
+            const acetaldehyde = document.getElementById('tox-acetaldehyde');
+            const explanation = document.getElementById('tox-explanation');
+
+            const btnAtr = document.getElementById('tox-btn-atramentaria');
+            const btnDis = document.getElementById('tox-btn-disseminatus');
+
+            if (species === 'atramentaria') {
+                status.className = "px-3 py-1 bg-red-100 text-red-800 font-bold text-sm rounded-full";
+                status.textContent = "⚠ Toxic Interaction: ALDH Enzyme Blocked (Antabuse Reaction)";
+                coprine.textContent = "Present (Pro-toxin)";
+                coprine.className = "text-red-700 font-bold text-sm";
+                aldh.textContent = "Irreversibly Inhibited";
+                aldh.className = "text-red-700 font-bold text-sm";
+                acetaldehyde.textContent = "Severe Accumulation (Poisoning)";
+                acetaldehyde.className = "text-red-700 font-bold text-sm";
+                explanation.textContent = "Coprinopsis atramentaria contains coprine, which hydrolyzes to 1-aminocyclopropanol in the stomach. This covalently blocks liver ALDH, causing severe acetaldehyde accumulation, facial flushing, tachycardia, and vomiting upon ethanol ingestion.";
+
+                btnAtr.className = "tox-btn p-4 rounded-xl border-2 border-red-600 bg-red-50 text-left transition";
+                btnDis.className = "tox-btn p-4 rounded-xl border border-warm bg-warm-neutral text-left transition";
+            } else {
+                status.className = "px-3 py-1 bg-emerald-100 text-emerald-800 font-bold text-sm rounded-full";
+                status.textContent = "✓ Safe: Uninhibited Alcohol Breakdown";
+                coprine.textContent = "0.0% (Completely Absent)";
+                coprine.className = "text-emerald-700 font-bold text-sm";
+                aldh.textContent = "100% Active (Normal Function)";
+                aldh.className = "text-sage font-bold text-sm";
+                acetaldehyde.textContent = "None (Converted to Acetic Acid)";
+                acetaldehyde.className = "text-stone-900 font-bold text-sm";
+                explanation.textContent = "Unlike Coprinopsis atramentaria, Coprinellus disseminatus contains no coprine. Consuming alcohol alongside or after eating this mushroom causes no toxic disulfiram-like reaction (Antabuse effect). The species is completely non-poisonous.";
+
+                btnDis.className = "tox-btn p-4 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-left transition";
+                btnAtr.className = "tox-btn p-4 rounded-xl border border-warm bg-warm-neutral text-left transition";
+            }
+        }
+
+        // --- 6. CHART.JS INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            selectSpecies('disseminatus');
+            selectPhyto('pufa');
+
+            // Chart 1: Cancer Cytotoxicity Line Chart
+            const ctxCyto = document.getElementById('cytotoxicityChart').getContext('2d');
+            new Chart(ctxCyto, {
+                type: 'line',
+                data: {
+                    labels: ['0 µg/mL', '10 µg/mL', '50 µg/mL', '100 µg/mL', '200 µg/mL', '400 µg/mL'],
+                    datasets: [
+                        {
+                            label: 'HeLa Cervical (Caspase-3 Apoptosis)',
+                            data: [100, 35, 12, 5, 2, 0],
+                            borderColor: '#b85233',
+                            backgroundColor: 'rgba(184, 82, 51, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            pointRadius: 4
+                        },
+                        {
+                            label: 'MCF-7 Breast (Ethanolic Extract)',
+                            data: [100, 92, 78, 62, 51, 18],
+                            borderColor: '#446b52',
+                            backgroundColor: 'rgba(68, 107, 82, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            pointRadius: 4
+                        },
+                        {
+                            label: 'HL-60 Leukemia (Polysaccharide)',
+                            data: [100, 80, 42, 18, 8, 3],
+                            borderColor: '#1e3a8a',
+                            backgroundColor: 'rgba(30, 58, 138, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            pointRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: '#e2d7c3' },
+                            ticks: {
+                                callback: value => value + '%',
+                                font: { size: 10 },
+                                color: '#57534e'
+                            }
+                        },
+                        x: {
+                            grid: { color: '#e2d7c3' },
+                            ticks: { font: { size: 10, weight: 'bold' }, color: '#44403c' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 10, weight: 'bold' }, boxWidth: 12 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => ` Viability: ${ctx.parsed.y}%`
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Pulp Biobleaching Bar Chart
+            const ctxPulp = document.getElementById('pulpBiobleachChart').getContext('2d');
+            new Chart(ctxPulp, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        ['Kappa Number', 'Reduction'],
+                        ['Brightness (ISO)', 'Improvement'],
+                        ['AOX Emission', 'Mitigation'],
+                        ['Chlorine Demand', 'Savings']
+                    ],
+                    datasets: [{
+                        label: '% Parameter Improvement',
+                        data: [55.0, 7.3, 68.0, 20.0],
+                        backgroundColor: [
+                            'rgba(68, 107, 82, 0.85)',
+                            'rgba(184, 82, 51, 0.85)',
+                            'rgba(14, 116, 144, 0.85)',
+                            'rgba(161, 98, 7, 0.85)'
+                        ],
+                        borderColor: [
+                            '#3b5e48',
+                            '#9a4228',
+                            '#0e7490',
+                            '#a16207'
+                        ],
+                        borderWidth: 1.5,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 80,
+                            grid: { color: '#e2d7c3' },
+                            ticks: {
+                                callback: value => value + '%',
+                                font: { size: 10 },
+                                color: '#57534e'
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 10, weight: 'bold' }, color: '#44403c' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => ` Metric: ${ctx.parsed.y}%`
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
